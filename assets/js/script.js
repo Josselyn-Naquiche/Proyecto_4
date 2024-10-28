@@ -148,7 +148,7 @@ window.addComment = async (postId, text) => {
         const input = document.querySelector(`#comments-${postId} input`);
         if (input) input.value = '';
     } catch (error) {
-        showMessage('Error al añadir el comentario', 'danger');
+        showMessage('Error al añadir el comentario: ' + error.message, 'danger');
     }
 };
 
@@ -158,7 +158,7 @@ window.deletePost = async (postId) => {
             await db.collection('posts').doc(postId).delete();
             showMessage('Publicación eliminada con éxito', 'success');
         } catch (error) {
-            showMessage('Error al eliminar la publicación', 'danger');
+            showMessage('Error al eliminar la publicación: ' + error.message, 'danger');
         }
     }
 };
@@ -184,9 +184,9 @@ postForm.addEventListener('submit', async (e) => {
     }
 });
 
-// Cerrar sesión
+/// Cerrar sesión
 document.getElementById('logout').addEventListener('click', () => {
     auth.signOut()
         .then(() => window.location.href = "welcome.html")
-        .catch(error => showMessage('Error al cerrar sesión', 'danger'));
+        .catch((error) => showMessage('Error al cerrar sesión: ' + error.message, 'danger'));
 });
