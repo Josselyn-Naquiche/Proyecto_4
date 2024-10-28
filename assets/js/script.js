@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { auth, db } from "./config.js";
 
 // Referencias a elementos del DOM
@@ -189,4 +190,27 @@ document.getElementById('logout').addEventListener('click', () => {
     auth.signOut()
         .then(() => window.location.href = "welcome.html")
         .catch(error => showMessage('Error al cerrar sesión', 'danger'));
+=======
+$(document).ready(function() {
+  auth.onAuthStateChanged(function(user) {
+      if (user) {
+          const displayName = user.displayName || user.email.split('@')[0];
+          const avatarURL = user.photoURL || 'https://via.placeholder.com/100';
+
+          $('#userName').text(displayName);
+          $('#userAvatar').attr('src', avatarURL);
+          $('#welcomeSection').removeClass('d-none');
+      } else {
+          window.location.href = "welcome.html";
+      }
+  });
+
+  $('#logout').click(function() {
+      auth.signOut().then(function() {
+          window.location.href = "welcome.html";
+      }).catch(function(error) {
+          console.error("Error al cerrar sesión:", error);
+      });
+  });
+>>>>>>> d89dc46e3a7f1907e633edc5b89fb90ca63c8b3b
 });
