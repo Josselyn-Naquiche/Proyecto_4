@@ -27,24 +27,16 @@
           <div class="card-body p-0">
             <div class="row">
               <div class="col-lg-6 d-none d-lg-block bg-login-image">
-                <img src="assets/img/img1.jpg" width="550" height="500" alt="img-welcome">
+                <img src="assets/img/img1.jpg" class="img-fluid" alt="img-welcome">
               </div>
               <div class="col-lg-6">
-                <div class="p-5">
-                  <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Iniciar Sesión</h1>
-                  </div>
+                <div class="p-5"> 
+                 
                   <!-- Área para mensajes de error (accesibilidad) -->
-                  <div id="error-message" class="alert alert-danger d-none" role="alert" aria-live="assertive"></div>  
-                  <!-- Botones principales -->
-                  <div id="main-buttons" class="text-center d-grid gap-2">
-                    <button id="loginEmailBtn" class="btn btn-primary" aria-label="Iniciar Sesión con Correo">Iniciar Sesión con Correo</button>
-                    <button id="loginGoogleBtn" class="btn btn-danger" aria-label="Iniciar Sesión con Google">Iniciar Sesión con Google</button>
-                    <button id="showRegisterForm" class="btn btn-link mt-3" aria-label="Registrarse">¿No tienes cuenta? Regístrate aquí</button>
-                  </div>
+                  
 
                   <!-- Formulario de Login por Correo -->
-                  <div id="loginEmailForm" class="mt-5 d-none">
+                  <div id="loginEmailForm">
                     <h3>Iniciar sesión</h3>
                     <form id="loginForm" aria-labelledby="loginFormHeading">
                         <div class="mb-3">
@@ -55,9 +47,19 @@
                             <label for="loginPassword" class="form-label">Contraseña</label>
                             <input type="password" id="loginPassword" class="form-control" placeholder="Ingresa tu contraseña" required aria-required="true">
                         </div>
-                        <button type="submit" class="btn btn-primary" aria-label="Ingresar">Ingresar</button>
-                        <button type="button" id="backToMain1" class="btn btn-secondary" aria-label="Volver al menú principal">Volver</button>
+                        <div class="text-center d-grid gap-2">
+                          <button type="submit" class="btn btn-primary mb-2" aria-label="Ingresar">Ingresar</button>
+                        </div>
+                       
+                     
                     </form>
+                  </div>
+                  <div id="error-message" class="alert alert-danger d-none" role="alert" aria-live="assertive"></div>  
+                  <!-- Botones principales -->
+                  <div id="main-buttons" class="text-center d-grid gap-2">
+                   
+                    <button id="loginGoogleBtn" class="btn btn-danger  botones" aria-label="Iniciar Sesión con Google">Iniciar Sesión con Google</button>
+                    <button id="showRegisterForm" class="btn btn-link " aria-label="Registrarse">¿No tienes cuenta? Regístrate aquí</button>
                   </div>
 
                   <!-- Formulario de Registro -->

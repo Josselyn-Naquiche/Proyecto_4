@@ -5,12 +5,14 @@ $(document).ready(function() {
   $('#showRegisterForm').click(function () {
     $('#registerForm').removeClass('d-none');
     $('#main-buttons').addClass('d-none');
+    $('#loginEmailForm').addClass('d-none')
   });
 
 
   $('#backToMain2').click(function() {
       $('#registerForm').addClass('d-none');
       $('#main-buttons').removeClass('d-none');
+      $('#loginEmailForm').removeClass('d-none')
   });
 
   $('#registerNewUserForm').submit(function(event) {
@@ -28,15 +30,7 @@ $(document).ready(function() {
           });
   });
 
-  $('#loginEmailBtn').click(function() {
-      $('#loginEmailForm').removeClass('d-none');
-      $('#main-buttons').addClass('d-none');
-  });
 
-  $('#backToMain1').click(function() {
-      $('#loginEmailForm').addClass('d-none');
-      $('#main-buttons').removeClass('d-none');
-  });
 
   $('#loginForm').submit(function(event) {
       event.preventDefault();
@@ -83,13 +77,13 @@ $(document).ready(function() {
           $('#userAvatar').attr('src', photoURL);
           $('#welcomeSection').removeClass('d-none');
           $('#main-buttons').addClass('d-none');
-          $('#loginEmailForm').addClass('d-none');
+        //   $('#loginEmailForm').addClass('d-none');
           $('#registerForm').addClass('d-none');
           $('#logout').removeClass('d-none');
       } else {
           $('#welcomeSection').addClass('d-none');
           $('#main-buttons').removeClass('d-none');
-          $('#loginEmailForm').addClass('d-none');
+        //   $('#loginEmailForm').addClass('d-none');
           $('#registerForm').addClass('d-none');
           $('#logout').addClass('d-none');
           $('#userName').text('');
