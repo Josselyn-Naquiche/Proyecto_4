@@ -1,12 +1,118 @@
-.profile-card {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 15px;
-    text-align: center;
+/* Estilos generales */
+body {
+    background-color: #f0f2f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.profile-img {
-    width: 80px;
-    height: 80px;
+
+/* Navbar personalizado */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Contenedor de posts */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Formulario de post */
+#post-form {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+#post-input {
+    border: 1px solid #ddd;
+    resize: none;
+    font-size: 1.1rem;
+}
+
+/* Tarjetas de posts */
+.card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+.card-body {
+    padding: 20px;
+}
+
+/* Botones de interacción */
+.btn-outline-primary {
+    border-radius: 20px;
+    padding: 5px 15px;
+}
+
+.btn-outline-primary:hover {
+    background-color: #e7f3ff;
+    color: #1877f2;
+    border-color: #1877f2;
+}
+
+/* Sección de comentarios */
+.comments-list {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.comment-item {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.comment-item:last-child {
+    border-bottom: none;
+}
+
+/* Avatar de usuario */
+.user-avatar {
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Mensajes de alerta */
+.alert {
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.card {
+    animation: fadeIn 0.3s ease-in;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .card {
+        margin-bottom: 15px;
+    }
 }
