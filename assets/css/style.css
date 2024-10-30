@@ -1,118 +1,227 @@
-/* Estilos generales */
-body {
-    background-color: #f0f2f5;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+:root {
+    --primary-color: #B8A7E0;    /* Morado pastel */
+    --secondary-color: #A7C7E7;   /* Celeste pastel */
+    --accent-color: #FFB6C1;      /* Rosa pastel */
+    --dark-color: #6B5B95;        /* Morado oscuro */
+    --light-color: #F0F8FF;       /* Azul muy claro */
+    --success-color: #98FB98;     /* Verde pastel */
+    --warning-color: #FFE4B5;     /* Durazno pastel */
+    --border-radius: 15px;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Navbar personalizado */
-.navbar {
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+body {
+    background-color: var(--light-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--dark-color);
+}
+
+/* Navbar */
+.navbar-custom {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    box-shadow: var(--box-shadow);
+    padding: 0.8rem 1rem;
 }
 
 .navbar-brand {
-    font-size: 1.5rem;
+    color: white !important;
     font-weight: bold;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-/* Contenedor de posts */
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+.navbar-brand .bi-paw-fill {
+    font-size: 1.8rem;
+    color: var(--accent-color);
 }
 
-/* Formulario de post */
-#post-form {
-    background: white;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-}
-
-#post-input {
-    border: 1px solid #ddd;
-    resize: none;
-    font-size: 1.1rem;
-}
-
-/* Tarjetas de posts */
-.card {
+/* Botones */
+.btn-custom {
+    background-color: var(--secondary-color);
     border: none;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-    transition: transform 0.2s;
+    color: white;
+    padding: 8px 20px;
+    transition: all 0.3s ease;
 }
 
-.card:hover {
+.btn-custom:hover {
+    background-color: var(--primary-color);
     transform: translateY(-2px);
 }
 
-.card-body {
-    padding: 20px;
+.btn-outline-custom {
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    background-color: white;
 }
 
-/* Botones de interacción */
-.btn-outline-primary {
-    border-radius: 20px;
+.btn-outline-custom:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Tarjetas */
+.card {
+    border-radius: var(--border-radius);
+    border: none;
+    box-shadow: var(--box-shadow);
+    background-color: white;
+    transition: transform 0.3s ease;
+}
+
+.post-form-card {
+    border-left: 5px solid var(--primary-color);
+}
+
+.post-card {
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.post-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    background-color: white;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+}
+
+/* Imágenes */
+.post-image-container {
+    max-height: 400px;
+    overflow: hidden;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+.post-image-container img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.post-image-container img:hover {
+    transform: scale(1.02);
+}
+
+/* Formularios */
+.form-control {
+    border-radius: 10px;
+    border: 2px solid var(--secondary-color);
+    padding: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(184, 167, 224, 0.25);
+}
+
+/* Información de usuario */
+.user-info {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.9);
     padding: 5px 15px;
+    border-radius: 20px;
+    box-shadow: var(--box-shadow);
 }
 
-.btn-outline-primary:hover {
-    background-color: #e7f3ff;
-    color: #1877f2;
-    border-color: #1877f2;
-}
-
-/* Sección de comentarios */
-.comments-list {
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    padding: 10px;
-    margin-top: 10px;
-}
-
-.comment-item {
-    padding: 8px;
-    border-bottom: 1px solid #eee;
-}
-
-.comment-item:last-child {
-    border-bottom: none;
-}
-
-/* Avatar de usuario */
-.user-avatar {
+.user-info img {
     width: 40px;
     height: 40px;
-    border-radius: 50%;
+    border: 2px solid white;
     object-fit: cover;
-}
-
-/* Mensajes de alerta */
-.alert {
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 /* Animaciones */
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from { 
+        opacity: 0; 
+        transform: translateY(20px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
 }
 
-.card {
-    animation: fadeIn 0.3s ease-in;
+.post-card {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Botones de like/dislike */
+.btn-sm {
+    padding: 5px 15px;
+    font-size: 0.9rem;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.btn-sm:hover {
+    transform: translateY(-2px);
+}
+
+.btn-sm .bi {
+    margin-right: 5px;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    color: var(--primary-color) !important;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-    .container {
-        padding: 10px;
+    .post-image-container {
+        max-height: 300px;
     }
     
-    .card {
-        margin-bottom: 15px;
+    .user-info span {
+        display: none;
     }
+    
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+}
+
+/* Alertas y mensajes */
+.alert {
+    border-radius: var(--border-radius);
+    border: none;
+    box-shadow: var(--box-shadow);
+}
+
+.alert-danger {
+    background-color: #FFE4E1;
+    color: #D8000C;
+}
+
+/* Efectos hover adicionales */
+.btn:active {
+    transform: scale(0.98);
+}
+
+/* Personalización de scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--light-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--dark-color);
 }

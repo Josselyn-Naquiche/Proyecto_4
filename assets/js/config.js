@@ -1,16 +1,28 @@
+// Configuración de Firebase
 const firebaseConfig = {
-    apiKey: "AIzaSyAdS3J9Xc2_vcC2R6ETrE2ih_rAhC3pcd0",
-    authDomain: "proyecto4-76bd0.firebaseapp.com",
-    projectId: "proyecto4-76bd0",
-    storageBucket: "proyecto4-76bd0.appspot.com",
-    messagingSenderId: "921987791644",
-    appId: "1:921987791644:web:c9638210c7df750b23d8d9",
-    measurementId: "G-YER3SCV6Y7"
+    apiKey: "AIzaSyAK2XwjNw553jLxXtipNNVnI53A64fnDHM",
+    authDomain: "proyecto4-e0675.firebaseapp.com",
+    projectId: "proyecto4-e0675",
+    storageBucket: "proyecto4-e0675.appspot.com",
+    messagingSenderId: "512574537773",
+    appId: "1:512574537773:web:4503d5bb365fc881e6f8a4",
+    measurementId: "G-3EMBHPK9DL"
 };
 
 // Inicializar Firebase
 firebase.initializeApp(firebaseConfig);
+
+// Inicializar servicios
 const auth = firebase.auth();
 const db = firebase.firestore();
+const storage = firebase.storage();
 
-export { auth, db };
+// Configurar persistencia offline
+db.enablePersistence()
+    .catch(err => {
+        if (err.code == 'failed-precondition') {
+            console.error('Error: Múltiples pestañas abiertas');
+        } else if (err.code == 'unimplemented') {
+            console.error('Error: Navegador no soportado');
+        }
+    });

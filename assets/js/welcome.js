@@ -1,83 +1,149 @@
-// Importar la configuración de Firebase
-import { auth } from './config.js';
-
-// Elementos del DOM
-const loginForm = document.getElementById('loginForm');
-const registerForm = document.getElementById('registerNewUserForm');
-const loginGoogleBtn = document.getElementById('loginGoogleBtn');
-const showRegisterForm = document.getElementById('showRegisterForm');
-const registerDiv = document.getElementById('registerForm');
-const mainButtons = document.getElementById('main-buttons');
-const errorMessage = document.getElementById('error-message');
-const backToMain = document.getElementById('backToMain2');
-
-// Mostrar/ocultar formularios
-showRegisterForm.addEventListener('click', () => {
-    registerDiv.classList.remove('d-none');
-    mainButtons.classList.add('d-none');
-    loginForm.classList.add('d-none');
-});
-
-backToMain.addEventListener('click', () => {
-    registerDiv.classList.add('d-none');
-    mainButtons.classList.remove('d-none');
-    loginForm.classList.remove('d-none');
-});
-
-// Login con email y contraseña
-loginForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-
-    try {
-        await auth.signInWithEmailAndPassword(email, password);
-        window.location.href = 'index.html';
-    } catch (error) {
-        mostrarError(error.message);
-    }
-});
-
-// Registro de nuevo usuario
-registerForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('registerEmail').value;
-    const password = document.getElementById('registerPassword').value;
-
-    try {
-        await auth.createUserWithEmailAndPassword(email, password);
-        alert('Usuario registrado exitosamente');
-        registerDiv.classList.add('d-none');
-        mainButtons.classList.remove('d-none');
-        loginForm.classList.remove('d-none');
-    } catch (error) {
-        mostrarError(error.message);
-    }
-});
-
-// Login con Google
-loginGoogleBtn.addEventListener('click', async () => {
+$(document).ready(function() {
     const provider = new firebase.auth.GoogleAuthProvider();
-    try {
-        await auth.signInWithPopup(provider);
-        window.location.href = 'index.html';
-    } catch (error) {
-        mostrarError(error.message);
-    }
-});
+    const defaultAvatar = "https://via.placeholder.com/100";
 
-// Función para mostrar errores
-function mostrarError(mensaje) {
-    errorMessage.textContent = mensaje;
-    errorMessage.classList.remove('d-none');
-    setTimeout(() => {
-        errorMessage.classList.add('d-none');
-    }, 3000);
-}
+    // Mostrar formulario de registro
+    $('#showRegisterForm').click(function() {
+        $('#registerForm').removeClass('d-none');
+        $('#main-buttons').addClass('d-none');
+        $('#error-message').addClass('d-none');
+    });
 
-// Verificar estado de autenticación
-auth.onAuthStateChanged((user) => {
-    if (user) {
-        window.location.href = 'index.html';
-    }
+    // Volver desde registro
+    $('#backToMain2').click(function() {
+        $('#registerForm').addClass('d-none');
+        $('#main-buttons').removeClass('d-none');
+        $('#error-message').addClass('d-none');
+    });
+
+    // Registro de nuevo usuario
+    $('#registerNewUserForm').submit(function(event) {
+        event.preventDefault();
+        const email = $('#registerEmail').val();
+        const password = $('#registerPassword').val();
+
+        if (password.length < 6) {
+            $('#error-message')
+                .removeClass('d-none')
+                .text("La contraseña debe tener al menos 6 caracteres");
+            return;
+        }
+
+        auth.createUserWithEmailAndPassword(email, password)
+            .then(function() {
+                window.location.href = "index.html";
+            })
+            .catch(function(error) {
+                let mensaje = "Error al registrar: ";
+                switch (error.code) {
+                    case 'auth/email-already-in-use':
+                        mensaje += "El correo ya está registrado";
+                        break;
+                    case 'auth/invalid-email':
+                        mensaje += "Correo inválido";
+                        break;
+                    default:
+                        mensaje += "Por favor, verifica tus datos";
+                }
+                $('#error-message')
+                    .removeClass('d-none')
+                    .text(mensaje);
+            });
+    });
+
+    // Mostrar formulario de login
+    $('#loginEmailBtn').click(function() {
+        $('#loginEmailForm').removeClass('d-none');
+        $('#main-buttons').addClass('d-none');
+        $('#error-message').addClass('d-none');
+    });
+
+    // Volver desde login
+    $('#backToMain1').click(function() {
+        $('#loginEmailForm').addClass('d-none');
+        $('#main-buttons').removeClass('d-none');
+        $('#error-message').addClass('d-none');
+    });
+
+    // Login con email
+    $('#loginForm').submit(function(event) {
+        event.preventDefault();
+        const email = $('#loginEmail').val();
+        const password = $('#loginPassword').val();
+
+        auth.signInWithEmailAndPassword(email, password)
+            .then(function() {
+                window.location.href = "index.html";
+            })
+            .catch(function(error) {
+                let mensaje = "Error al iniciar sesión: ";
+                switch (error.code) {
+                    case 'auth/user-not-found':
+                        mensaje += "Usuario no encontrado";
+                        break;
+                    case 'auth/wrong-password':
+                        mensaje += "Contraseña incorrecta";
+                        break;
+                    default:
+                        mensaje += "Por favor, verifica tus datos";
+                }
+                $('#error-message')
+                    .removeClass('d-none')
+                    .text(mensaje);
+            });
+    });
+
+    // Login con Google
+    $('#loginGoogleBtn').click(function() {
+        auth.signInWithPopup(provider)
+            .then(function() {
+                window.location.href = "index.html";
+            })
+            .catch(function(error) {
+                $('#error-message')
+                    .removeClass('d-none')
+                    .text("Error al iniciar sesión con Google. Por favor, intenta nuevamente.");
+            });
+    });
+
+    // Cerrar sesión
+    $('#logout').click(function() {
+        auth.signOut()
+            .then(function() {
+                $('#welcomeSection').addClass('d-none');
+                $('#main-buttons').removeClass('d-none');
+                $('#logout').addClass('d-none');
+                $('#userName').text('');
+                $('#userAvatar').attr('src', defaultAvatar);
+            })
+            .catch(function(error) {
+                console.error("Error al cerrar sesión:", error);
+            });
+    });
+
+    // Verificar estado de autenticación
+    auth.onAuthStateChanged(function(user) {
+        if (user) {
+            const displayName = user.displayName || user.email.split('@')[0];
+            const photoURL = user.photoURL || defaultAvatar;
+
+            $('#userName').text(displayName);
+            $('#userAvatar').attr('src', photoURL);
+            $('#welcomeSection').removeClass('d-none');
+            $('#main-buttons').addClass('d-none');
+            $('#loginEmailForm').addClass('d-none');
+            $('#registerForm').addClass('d-none');
+            $('#logout').removeClass('d-none');
+            
+            window.location.href = "index.html";
+        } else {
+            $('#welcomeSection').addClass('d-none');
+            $('#main-buttons').removeClass('d-none');
+            $('#loginEmailForm').addClass('d-none');
+            $('#registerForm').addClass('d-none');
+            $('#logout').addClass('d-none');
+            $('#userName').text('');
+            $('#userAvatar').attr('src', defaultAvatar);
+        }
+    });
 });
